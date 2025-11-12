@@ -1,0 +1,1 @@
+SELECT client_id, count(*) as nb_commandes FROM `commandes` GROUP BY client_id ORDER BY nb_commandes desc LIMIT 10;
