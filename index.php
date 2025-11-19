@@ -5,7 +5,7 @@ session_start();
 
 
 // Inclure le fichier de connexion à la base de données
-include(realpath('') ."\\fonctions\db_connection.php");
+include(realpath('') . "\\fonctions\db_connection.php");
 
 // Requête SQL pour récupérer les produits
 $sql = "SELECT * FROM products LIMIT 10"; // Adaptez cette requête à votre structure de base de données
@@ -35,8 +35,8 @@ $products = $query->fetchAll(PDO::FETCH_ASSOC);
 
 <body class="animsition">
 	<?php
-include(realpath(__DIR__ . '\\GestionDusite\components\head.php'));
-?>
+	include(realpath(__DIR__ . '\\GestionDusite\components\head.php'));
+	?>
 
 	<script>
 		// function submitForm(categoryId, categorieName, actionUrl) {
@@ -88,7 +88,8 @@ include(realpath(__DIR__ . '\\GestionDusite\components\head.php'));
 	<section class="section-slide">
 		<div class="wrap-slick1">
 			<div class="slick1">
-				<div class="item-slick1" style="background-image: url(/website_will/assets/img/images/SLIDE4.jpg);width: 1920px; height: 930px;">
+				<div class="item-slick1"
+					style="background-image: url(/website_will/assets/img/images/SLIDE4.jpg);width: 1920px; height: 930px;">
 					<div class="container h-full">
 						<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
 							<div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
@@ -139,7 +140,8 @@ include(realpath(__DIR__ . '\\GestionDusite\components\head.php'));
 					</div>
 				</div>
 
-				<div class="item-slick1" style="background-image: url(/website_will/assets/img/images/SLIDE5.jpg);width: 1920px; height: 930px;">
+				<div class="item-slick1"
+					style="background-image: url(/website_will/assets/img/images/SLIDE5.jpg);width: 1920px; height: 930px;">
 					<div class="container h-full">
 						<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
 							<div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
@@ -180,7 +182,7 @@ include(realpath(__DIR__ . '\\GestionDusite\components\head.php'));
 					Aperçu des produits
 				</h3>
 			</div>
-		
+
 
 			<div class="flex-w flex-sb-m p-b-52">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
@@ -208,7 +210,7 @@ include(realpath(__DIR__ . '\\GestionDusite\components\head.php'));
 						Chargeurs
 					</button>
 				</div>
-				
+
 			</div>
 
 
@@ -224,8 +226,9 @@ include(realpath(__DIR__ . '\\GestionDusite\components\head.php'));
 						<!-- Block2 -->
 						<div class="block2">
 							<div class="block2-pic hov-img0">
-								<img  src="assets/img/uploads/<?= htmlspecialchars($product['image_url']) ?> "
-									alt="<?= htmlspecialchars($product['name']) ?>" style=" width: 300px;height:200px;object-fit: cover; ">
+								<img src="assets/img/uploads/<?= htmlspecialchars($product['image_url']) ?> "
+									alt="<?= htmlspecialchars($product['name']) ?>"
+									style=" width: 300px;height:200px;object-fit: cover; ">
 								<a href="product-detail.php?product_id=<?= htmlspecialchars($product['product_id']); ?>"
 									class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
 									Details
@@ -271,7 +274,7 @@ include(realpath(__DIR__ . '\\GestionDusite\components\head.php'));
 
 
 	<?php
-	include("./gestionDusite/components/footer.php");
+	include(realpath(__DIR__ . '\\GestionDusite\components\footer.php'));
 	?>
 
 
