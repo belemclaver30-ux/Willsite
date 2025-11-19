@@ -9,6 +9,8 @@ require_once __DIR__ . '/../config/config.php';
 // Variables pour la page
 $pageTitle = 'Contact - Willsite';
 $page_active = 'contact';
+$successMessage = null;
+$errorMessage = null;
 
 // Traitement du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -16,28 +18,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $message = sanitizeString(post('msg'));
     
     if (empty($email) || empty($message)) {
-        setFlashMessage('Veuillez remplir tous les champs.', 'error');
+        $errorMessage = 'Veuillez remplir tous les champs.';
     } elseif (!isValidEmail($email)) {
-        setFlashMessage('Veuillez entrer une adresse email valide.', 'error');
+        $errorMessage = 'Veuillez entrer une adresse email valide.';
     } else {
         try {
-            $sql = "INSERT INTO messages (email, message, created_at) VALUES (?, ?, NOW())";
+            $sql = "INSERT INTO messages (email, message) VALUES (?, ?)";
             $stmt = $conn->prepare($sql);
             $stmt->execute([$email, $message]);
             
-            setFlashMessage('Votre message a été envoyé avec succès. Nous vous répondrons bientôt.', 'success');
-            redirect(url('public/contact.php'));
+            $successMessage = 'Votre message a été envoyé avec succès. Nous vous répondrons bientôt.';
         } catch (PDOException $e) {
-            setFlashMessage('Une erreur est survenue. Veuillez réessayer.', 'error');
+            $errorMessage = 'Une erreur est survenue. Veuillez réessayer.';
             if (APP_DEBUG) {
+                $errorMessage .= ' (Erreur: ' . $e->getMessage() . ')';
                 logMessage('Erreur envoi message : ' . $e->getMessage(), 'error');
             }
         }
     }
 }
-
-$flashMessage = getFlashMessage();
-$flashError = getFlashMessage('error');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -56,21 +55,15 @@ $flashError = getFlashMessage('error');
     <!-- Content page -->
     <section class="bg0 p-t-104 p-b-116">
         <div class="container">
-            <?php if ($flashMessage): ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?= escape($flashMessage) ?>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            <?php if ($successMessage): ?>
+                <div class="alert alert-success" style="margin-bottom: 20px; padding: 15px; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 5px; color: #155724;">
+                    <strong>✅ Succès !</strong> <?= escape($successMessage) ?>
                 </div>
             <?php endif; ?>
 
-            <?php if ($flashError): ?>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <?= escape($flashError) ?>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            <?php if ($errorMessage): ?>
+                <div class="alert alert-danger" style="margin-bottom: 20px; padding: 15px; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 5px; color: #721c24;">
+                    <strong>❌ Erreur !</strong> <?= escape($errorMessage) ?>
                 </div>
             <?php endif; ?>
 
