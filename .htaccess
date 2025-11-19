@@ -1,1 +1,58 @@
-ErrorDocument 404  /website_will/GestionErreur/erreur-404.php
+# Activer la réécriture d'URL
+RewriteEngine On
+
+# Exclure explicitement les dossiers qui ne doivent PAS être redirigés
+RewriteCond %{REQUEST_URI} ^/admin_wws [NC,OR]
+RewriteCond %{REQUEST_URI} ^/Willsite/admin_wws [NC,OR]
+RewriteCond %{REQUEST_URI} ^/assets [NC,OR]
+RewriteCond %{REQUEST_URI} ^/Willsite/assets [NC,OR]
+RewriteCond %{REQUEST_URI} ^/vendor [NC,OR]
+RewriteCond %{REQUEST_URI} ^/Willsite/vendor [NC,OR]
+RewriteCond %{REQUEST_URI} ^/GestionErreur [NC,OR]
+RewriteCond %{REQUEST_URI} ^/Willsite/GestionErreur [NC,OR]
+RewriteCond %{REQUEST_URI} ^/public [NC,OR]
+RewriteCond %{REQUEST_URI} ^/Willsite/public [NC]
+RewriteRule ^ - [L]
+
+# Rediriger tout le reste vers public/
+RewriteRule ^(.*)$ public/$1 [L,QSA]
+
+# Empêcher l'accès aux dossiers sensibles (mais autoriser admin_wws)
+RewriteCond %{REQUEST_URI} ^/(config|includes|app|storage)/ [NC]
+RewriteRule .* - [F,L]
+
+# Protection contre les injections
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Désactiver l'affichage des répertoires
+Options -Indexes
+
+# Protection des fichiers sensibles
+<FilesMatch "\.(env|log|sql|json|lock|md)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Gestion des erreurs
+ErrorDocument 404 /Willsite/GestionErreur/erreur-404.php
+ErrorDocument 500 /Willsite/GestionErreur/error.php
+
+# Compression GZIP
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript
+</IfModule>
+
+# Mise en cache
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>

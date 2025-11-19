@@ -1,0 +1,30 @@
+# Activer la réécriture d'URL
+RewriteEngine On
+
+# Rediriger www vers non-www (optionnel)
+# RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+# RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+# Gestion des erreurs
+ErrorDocument 404 /GestionErreur/erreur-404.php
+ErrorDocument 500 /GestionErreur/error.php
+
+# URLs propres pour les produits
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^produit/([0-9]+)$ product-detail.php?product_id=$1 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^categorie/([0-9]+)$ afficage_produit.php?categorie=$1 [L,QSA]
+
+# Protection des fichiers de configuration
+<FilesMatch "^\.">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Types MIME
+AddType application/x-httpd-php .php
+AddType text/css .css
+AddType text/javascript .js
