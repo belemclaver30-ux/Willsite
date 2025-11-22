@@ -27,8 +27,15 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .form-section {
@@ -99,16 +106,24 @@ input {
     font-weight: 600;
     color: white;
     margin-bottom: 30px;
-   
+
 }
-.img{
+
+.img {
     width: 2px;
     height: 10px;
 }
 
 .visual-section {
     flex: 1;
-    background: url('..assets/img/images/photo site/new/team8.jpg') center/cover no-repeat;
+    position: relative;
+    overflow: hidden;
+}
+
+.visual-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     filter: blur(0px) brightness(0.8);
 }
 

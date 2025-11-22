@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['etat'] = "connecte"; 
 
 
-            header("Location: ../index.php");
+            header("Location: /Willsite/admin_wws/index.php");
             exit;
         } else {
             echo "<script>alert('Email ou mot de passe incorrect'); window.history.back();</script>";

@@ -1,14 +1,13 @@
 <?php
 
-// Démarre la session
-session_start();
+// Inclure la configuration centralisée (la session est démarrée automatiquement)
+require_once __DIR__ . '/config/config.php';
 
-
-// Inclure le fichier de connexion à la base de données
-include(realpath('') . "\\fonctions\db_connection.php");
+// Connexion à la base de données
+$conn = getDbConnection();
 
 // Requête SQL pour récupérer les produits
-$sql = "SELECT * FROM products LIMIT 10"; // Adaptez cette requête à votre structure de base de données
+$sql = "SELECT * FROM products order by product_id DESC LIMIT 10"; // Adaptez cette requête à votre structure de base de données
 $stmt = $conn->prepare($sql); // Préparer la requête
 $stmt->execute(); // Exécuter la requête
 
@@ -18,7 +17,8 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $query = $conn->query("
   SELECT p.*, c.name AS category_name
   FROM products p
-  LEFT JOIN categories c ON p.category_id = c.category_id
+  LEFT JOIN categories c ON p.category_id = c.category_id 
+  order by p.product_id DESC
 ");
 $products = $query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -35,7 +35,7 @@ $products = $query->fetchAll(PDO::FETCH_ASSOC);
 
 <body class="animsition">
 	<?php
-	include(realpath(__DIR__ . '\\GestionDusite\components\head.php'));
+	include __DIR__ . '/app/views/includes/head.php';
 	?>
 
 	<script>
@@ -80,7 +80,7 @@ $products = $query->fetchAll(PDO::FETCH_ASSOC);
 
 	<?php
 	$page_active = 'index';
-	include('./gestionDusite/components/navbar.php');
+	include __DIR__ . '/app/views/includes/navbar.php';
 	?>
 
 
@@ -89,7 +89,7 @@ $products = $query->fetchAll(PDO::FETCH_ASSOC);
 		<div class="wrap-slick1">
 			<div class="slick1">
 				<div class="item-slick1"
-					style="background-image: url(/website_will/assets/img/images/SLIDE4.jpg);width: 1920px; height: 930px;">
+					style="background-image: url(assets/img/images/SLIDE4.jpg);width: 1920px; height: 930px;">
 					<div class="container h-full">
 						<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
 							<div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
@@ -105,7 +105,7 @@ $products = $query->fetchAll(PDO::FETCH_ASSOC);
 							</div>
 
 							<div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-								<a href="afficage_produit.php"
+								<a href="<?= url('afficage_produit.php') ?>"
 									class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									ACHETER MAINTENANT
 								</a>
@@ -115,7 +115,7 @@ $products = $query->fetchAll(PDO::FETCH_ASSOC);
 				</div>
 
 				<div class="item-slick1"
-					style="background-image: url(/website_will/assets/img/images/SLIDE13.jpg);width: 1920px; height: 800px;">
+					style="background-image: url(assets/img/images/SLIDE13.jpg);width: 1920px; height: 800px;">
 					<div class="container h-full">
 						<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
 							<div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
@@ -131,7 +131,7 @@ $products = $query->fetchAll(PDO::FETCH_ASSOC);
 							</div>
 
 							<div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-								<a href="afficage_produit.php"
+								<a href="<?= url('afficage_produit.php') ?>"
 									class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									ACHETER MAINTENANT
 								</a>
@@ -141,7 +141,7 @@ $products = $query->fetchAll(PDO::FETCH_ASSOC);
 				</div>
 
 				<div class="item-slick1"
-					style="background-image: url(/website_will/assets/img/images/SLIDE5.jpg);width: 1920px; height: 930px;">
+					style="background-image: url(assets/img/images/SLIDE5.jpg);width: 1920px; height: 930px;">
 					<div class="container h-full">
 						<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
 							<div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
@@ -157,7 +157,7 @@ $products = $query->fetchAll(PDO::FETCH_ASSOC);
 							</div>
 
 							<div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
-								<a href="afficage_produit.php"
+								<a href="<?= url('afficage_produit.php') ?>"
 									class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									ACHETER MAINTENANT
 								</a>
@@ -170,7 +170,7 @@ $products = $query->fetchAll(PDO::FETCH_ASSOC);
 	</section>
 
 	<?php
-	include("./gestionDusite/components/banner.php");
+	include __DIR__ . '/app/views/includes/banner.php';
 	?>
 
 
@@ -226,10 +226,10 @@ $products = $query->fetchAll(PDO::FETCH_ASSOC);
 						<!-- Block2 -->
 						<div class="block2">
 							<div class="block2-pic hov-img0">
-								<img src="assets/img/uploads/<?= htmlspecialchars($product['image_url']) ?> "
+								<img src="<?= asset('img/uploads/' . htmlspecialchars($product['image_url'])) ?>"
 									alt="<?= htmlspecialchars($product['name']) ?>"
 									style=" width: 300px;height:200px;object-fit: cover; ">
-								<a href="product-detail.php?product_id=<?= htmlspecialchars($product['product_id']); ?>"
+								<a href="<?= url('product-detail.php?product_id=' . htmlspecialchars($product['product_id'])) ?>"
 									class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
 									Details
 								</a>
@@ -274,7 +274,7 @@ $products = $query->fetchAll(PDO::FETCH_ASSOC);
 
 
 	<?php
-	include(realpath(__DIR__ . '\\GestionDusite\components\footer.php'));
+	include __DIR__ . '/app/views/includes/footer.php';
 	?>
 
 

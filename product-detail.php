@@ -1,6 +1,7 @@
 <?php
-// Inclure le fichier de connexion à la base de données
-include(realpath(__DIR__ . '\\fonctions\db_connection.php'));
+// Inclure la configuration
+require_once __DIR__ . '/config/config.php';
+$conn = getDbConnection();
 
 // Vérifier si 'product_id' est passé dans l'URL
 if (isset($_GET['product_id'])) {
@@ -28,10 +29,10 @@ $main_product = $product[0];
 
 <!DOCTYPE html>
 <html lang="en">
-<?php include("./gestionDusite/components/head.php"); ?>
+<?php include __DIR__ . '/app/views/includes/head.php'; ?>
 
 <body class="animsition">
-	<?php include("./gestionDusite/components/navbar.php"); ?>
+	<?php include __DIR__ . '/app/views/includes/navbar.php'; ?>
 
 	<section class="sec-product-detail bg0 p-t-65 p-b-60">
 		<div class="container">
@@ -46,20 +47,21 @@ $main_product = $product[0];
 								// Colonnes d'images à afficher
 								$image_fields = ['image_url', 'first_image', 'second_image', 'third_image'];
 
-								foreach ($image_fields as $field) {
-									if (!empty($main_product[$field])) {
-										$imagePath = htmlspecialchars($main_product[$field]);
-										echo "
-										<div class='item-slick3' data-thumb='./assets/img/uploads/$imagePath'>
-											<div class='wrap-pic-w pos-relative'>
-												<img src='./assets/img/uploads/$imagePath' alt='IMG-PRODUCT'>
-												<a class='flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04' href='../website_wws/uploads/$imagePath'>
-													<i class='fa fa-expand'></i>
-												</a>
-											</div>
-										</div>";
-									}
+							foreach ($image_fields as $field) {
+								if (!empty($main_product[$field])) {
+									$imagePath = htmlspecialchars($main_product[$field]);
+									$imageUrl = asset('img/uploads/' . $imagePath);
+									echo "
+									<div class='item-slick3' data-thumb='$imageUrl'>
+										<div class='wrap-pic-w pos-relative'>
+											<img src='$imageUrl' alt='IMG-PRODUCT'>
+											<a class='flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04' href='$imageUrl'>
+												<i class='fa fa-expand'></i>
+											</a>
+										</div>
+									</div>";
 								}
+							}
 								?>
 							</div>
 						</div>
@@ -113,21 +115,19 @@ $main_product = $product[0];
 							?>
                            
 
-							<a class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04"
-								href="fonctions/compter_clic.php?product_id=<?= $main_product['product_id'] ?>&text=<?= urlencode($messageFinal) ?>"
-								target="_blank" style="color: white; text-decoration: none;">
-								Ajouter
-							</a>
-
-						</div> <!-- .p-b-30 -->
+						<a class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04"
+							href="<?= url('fonctions/compter_clic.php?product_id=' . $main_product['product_id'] . '&text=' . urlencode($messageFinal)) ?>"
+							target="_blank" style="color: white; text-decoration: none;">
+							Ajouter
+						</a>						</div> <!-- .p-b-30 -->
 					</div> <!-- .p-r-50 -->
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<?php include("./gestionDusite/components/banner.php"); ?>
-	<?php include("./gestionDusite/components/footer.php"); ?>
+	<?php include __DIR__ . '/app/views/includes/banner.php'; ?>
+	<?php include __DIR__ . '/app/views/includes/footer.php'; ?>
 </body>
 
 </html>
