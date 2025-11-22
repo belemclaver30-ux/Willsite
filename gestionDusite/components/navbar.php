@@ -23,25 +23,25 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="menu-desktop">
                     <ul class="main-menu">
                         <li class="<?= ($page_active == 'index') ? 'active-menu' : ''; ?>">
-                            <a href="../index.php">Accueil</a>
+                            <a href="./index.php">Accueil</a>
                         </li>
 
                         <li class="<?= ($page_active == 'boutique') ? 'active-menu' : ''; ?>">
                             <a href="#">Votre boutique</a>
                             <ul class="sub-menu">
                                 <?php foreach ($categories as $categorie): ?>
-                                    <li><a href="../afficage_produit.php?categorie=<?= htmlspecialchars($categorie['category_id']); ?>"><?= htmlspecialchars($categorie['name']) ?></a></li>
+                                    <li><a href="./afficage_produit.php?categorie=<?= htmlspecialchars($categorie['category_id']); ?>"><?= htmlspecialchars($categorie['name']) ?></a></li>
                                 <?php endforeach; ?>
                                
                             </ul>
                         </li>
 
                         <li class="<?= ($page_active == 'about') ? 'active-menu' : ''; ?>">
-                            <a href="../about.php">À propos</a>
+                            <a href="./about.php">À propos</a>
                         </li>
 
                         <li class="<?= ($page_active == 'contact') ? 'active-menu' : ''; ?>">
-                            <a href="../contact.php">Contact</a>
+                            <a href="./contact.php">Contact</a>
                         </li>
                     </ul>
                 </div>
