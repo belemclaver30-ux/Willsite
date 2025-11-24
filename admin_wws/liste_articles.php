@@ -29,12 +29,12 @@ if ($category_id) {
   }
 
   // Récupérer les produits de la catégorie
-  $sql = "SELECT * FROM products WHERE category_id = :category_id";
+  $sql = "SELECT * FROM products WHERE category_id = :category_id order by product_id DESC";
   $stmt = $conn->prepare($sql);
   $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
 } else {
   // Afficher tous les produits si aucune catégorie n'est sélectionnée
-  $sql = "SELECT * FROM products";
+  $sql = "SELECT * FROM products order by product_id DESC";
   $stmt = $conn->prepare($sql);
 }
 
@@ -200,7 +200,7 @@ if ($catQuery) {
                               <div class="col-md-6 pe-0">
                                 <div class="form-group form-group-default">
                                   <label>Écran</label>
-                                  <input id="productÉcran" name="produit_ecran" type="number" class="form-control" required />
+                                  <input id="productEcran" name="produit_ecran" type="number" class="form-control" required />
                                 </div>
                               </div>
 
@@ -269,7 +269,7 @@ if ($catQuery) {
                           document.getElementById('productName').value = this.dataset.name;
                           document.getElementById('productProcesseur').value = this.dataset.processeur;
                           document.getElementById('productStockage').value = this.dataset.stockage;
-                          document.getElementById('productÉcran').value = this.dataset.écran;
+                          document.getElementById('productEcran').value = this.dataset.ecran;
                           document.getElementById('productRAM').value = this.dataset.ram;
                           document.getElementById('productPrix').value = this.dataset.prix;
                           document.getElementById('productCategory').value = this.dataset.category;
@@ -292,7 +292,7 @@ if ($catQuery) {
                       document.getElementById('productName').value = '';
                       document.getElementById('productProcesseur').value = '';
                       document.getElementById('productStockage').value = '';
-                      document.getElementById('productÉcran').value = '';
+                      document.getElementById('productEcran').value = '';
                       document.getElementById('productRAM').value = '';
                       document.getElementById('productPrix').value = '';
                       document.getElementById('productCategory').value = '';
@@ -354,10 +354,10 @@ if ($catQuery) {
 
                             <td>
                               <div class="form-button-action">
-                                <a href="delete_product.php?a_supprimer_id=<?= $product['product_id'] ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce produit ?');" class="btn btn-link btn-primary btn-lg" data-bs-toggle="tooltip" title="Supprimer">
+                                <a href="delete_product.php?a_supprimer_id=<?= $product['product_id'] ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce produit ?');" class="btn btn-link btn-danger btn-lg" data-bs-toggle="tooltip" title="Supprimer">
                                   <i class="fa fa-times"></i>
                                 </a>
-                                <a href="#" class="btn btn-link btn-danger btn-edit" data-bs-toggle="modal" data-bs-target="#addRowModal"
+                                <a href="#" class="btn btn-link btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#addRowModal"
                                   data-id="<?= $product['product_id'] ?>"
                                   data-name="<?= htmlspecialchars($product['name']) ?>"
                                   data-processeur="<?= htmlspecialchars($product['processeur']) ?>"

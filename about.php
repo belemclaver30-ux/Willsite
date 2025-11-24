@@ -1,5 +1,6 @@
 <?php
-include(realpath(__DIR__ . '\\fonctions\db_connection.php'));
+require_once __DIR__ . '/config/config.php';
+$conn = getDbConnection();
 ?>
 
 
@@ -9,13 +10,13 @@ include(realpath(__DIR__ . '\\fonctions\db_connection.php'));
 
 <body class="animsition">
 	<?php
-	include("./gestionDusite/components/head.php");
+	include __DIR__ . '/app/views/includes/head.php';
 	?>
 
 	<!-- Header -->
 	<?php
 	$page_active = 'about';
-	include('./gestionDusite/components/navbar.php');
+	include __DIR__ . '/app/views/includes/navbar.php';
 	?>
 
 
@@ -101,12 +102,12 @@ include(realpath(__DIR__ . '\\fonctions\db_connection.php'));
 
 
 	<?php
-	include("./gestionDusite/components/banner.php");
+	include __DIR__ . '/app/views/includes/banner.php';
 	?>
 
 
 	<?php
-	include("./gestionDusite/components/footer.php");
+	include __DIR__ . '/app/views/includes/footer.php';
 	?>
 
 

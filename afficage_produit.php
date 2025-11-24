@@ -1,9 +1,7 @@
 <?php
-// Démarre la session
-session_start();
-
-// Inclure le fichier de connexion à la base de données
-include(realpath(__DIR__ . '\\fonctions\db_connection.php'));
+// Inclure la configuration (la session est démarrée automatiquement)
+require_once __DIR__ . '/config/config.php';
+$conn = getDbConnection();
 
 // Vérifier si une catégorie est passée en paramètre
 $category_id = isset($_GET['categorie']) ? (int)$_GET['categorie'] : null;
@@ -25,12 +23,12 @@ if ($category_id) {
 	}
 
 	// Récupérer les produits de la catégorie
-	$sql = "SELECT * FROM products WHERE category_id = :category_id";
+	$sql = "SELECT * FROM products WHERE category_id = :category_id order by product_id DESC";
 	$stmt = $conn->prepare($sql);
 	$stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
 } else {
 	// Afficher tous les produits si aucune catégorie n'est sélectionnée
-	$sql = "SELECT * FROM products";
+	$sql = "SELECT * FROM products order by product_id DESC";
 	$stmt = $conn->prepare($sql);
 }
 
@@ -45,7 +43,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <html lang="en">
 
 <?php
-include("./gestionDusite/components/head.php");
+include __DIR__ . '/app/views/includes/head.php';
 ?>
 
 <body class="animsition" style="margin-top: 50px;">
@@ -53,7 +51,7 @@ include("./gestionDusite/components/head.php");
 
 	<?php
 	$page_active = 'boutique';
-	include('./gestionDusite/components/navbar.php');
+	include __DIR__ . '/app/views/includes/navbar.php';
 	?>
 
 	<!-- Product -->
@@ -70,22 +68,22 @@ include("./gestionDusite/components/head.php");
 					<?php foreach ($products as $product) : ?>
 						<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item">
 							<div class="block2">
-								<div class="block2-pic hov-img0">
-									<img src="assets/img/uploads/<?= htmlspecialchars($product['image_url']) ?>" alt="<?= htmlspecialchars($product['name']) ?>"
-									style=" width: 300px;height:200px;object-fit: cover; ">
-									<a href="product-detail.php?product_id=<?= htmlspecialchars($product['product_id']); ?>"
+							<div class="block2-pic hov-img0">
+								<img src="<?= asset('img/uploads/' . htmlspecialchars($product['image_url'])) ?>" alt="<?= htmlspecialchars($product['name']) ?>"
+								style=" width: 300px;height:200px;object-fit: cover; ">
+								<a href="<?= url('product-detail.php?product_id=' . htmlspecialchars($product['product_id'])) ?>"
 										class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
 										Détails
 									</a>
 								</div>
 								<div class="block2-txt flex-w flex-t p-t-14">
-									<div class="block2-txt-child1 flex-col-l ">
-										<a href="product-detail.php?id=<?= htmlspecialchars($product['product_id']); ?>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-											<?= htmlspecialchars($product['name']) ?>
-										</a>
-										<span class="stext-105 cl3">
-											<?= number_format($product['prix'], 0, ',', ' ') ?> FCFA
-										</span>
+								<div class="block2-txt-child1 flex-col-l ">
+									<a href="<?= url('product-detail.php?product_id=' . htmlspecialchars($product['product_id'])) ?>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+										<?= htmlspecialchars($product['name']) ?>
+									</a>
+									<span class="stext-105 cl3">
+										<?= formatPrice($product['prix']) ?>
+									</span>
 									</div>
 								</div>
 							</div>
@@ -100,7 +98,7 @@ include("./gestionDusite/components/head.php");
 	</section>
 
 	<?php
-	include("./gestionDusite/components/footer.php");
+	include __DIR__ . '/app/views/includes/footer.php';
 	?>
 
 </body>

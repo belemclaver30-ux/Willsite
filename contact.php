@@ -1,6 +1,6 @@
 <?php
-$chemin = realpath(__DIR__ . '\\fonctions\db_connection.php');
-include($chemin);
+require_once __DIR__ . '/config/config.php';
+$conn = getDbConnection();
 ?>
 
 
@@ -11,12 +11,12 @@ include($chemin);
 
 <body class="animsition">
 	<?php
-	include("./gestionDusite/components/head.php");
+	include __DIR__ . '/app/views/includes/head.php';
 	?>
 	<!-- Header -->
 	<?php
 	$page_active = 'contact';
-	include('./gestionDusite/components/navbar.php');
+	include __DIR__ . '/app/views/includes/navbar.php';
 	?>
 
 
@@ -31,26 +31,49 @@ include($chemin);
 	<!-- Content page -->
 	<section class="bg0 p-t-104 p-b-116">
 		<div class="container">
+			<?php
+			// Afficher les messages de succès
+			if (isset($_SESSION['contact_success'])) {
+				echo '<div class="alert alert-success" style="background-color: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 15px; margin-bottom: 20px; border-radius: 5px;">';
+				echo '<strong>Succès !</strong> ' . htmlspecialchars($_SESSION['contact_success']);
+				echo '</div>';
+				unset($_SESSION['contact_success']);
+			}
+
+			// Afficher les messages d'erreur
+			if (isset($_SESSION['contact_errors'])) {
+				echo '<div class="alert alert-danger" style="background-color: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 15px; margin-bottom: 20px; border-radius: 5px;">';
+				echo '<strong>Erreur !</strong><ul style="margin: 10px 0 0 20px;">';
+				foreach ($_SESSION['contact_errors'] as $error) {
+					echo '<li>' . htmlspecialchars($error) . '</li>';
+				}
+				echo '</ul></div>';
+				unset($_SESSION['contact_errors']);
+			}
+
+			// Récupérer les anciennes valeurs en cas d'erreur
+			$old_email = $_SESSION['contact_old']['email'] ?? '';
+			$old_msg = $_SESSION['contact_old']['msg'] ?? '';
+			unset($_SESSION['contact_old']);
+			?>
 			<div class="flex-w flex-tr">
 				<div class="size-210 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-					<form action="admin_wws/funtion/send_message.php" method="POST">
+					<form action="<?= url('fonctions/send_message.php') ?>" method="POST">
 
 						<h4 class="mtext-105 cl2 txt-center p-b-30">
 							Envoyez nous un Message
 						</h4>
 
-						<div class="bor8 m-b-20 how-pos4-parent">
-							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="email"
-								placeholder="Votre Email">
-							<img class="how-pos4 pointer-none" src="images/icons/icon-email.png" alt="ICON">
-						</div>
+					<div class="bor8 m-b-20 how-pos4-parent">
+						<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="email" name="email"
+							placeholder="Votre Email" value="<?= htmlspecialchars($old_email) ?>" required>
+						<i class="fa fa-envelope how-pos4 pointer-none" style="font-size: 18px; color: #999;"></i>
+					</div>
 
-						<div class="bor8 m-b-30">
-							<textarea class="stext-111 cl2 plh3 size-120 p-lr-28 p-tb-25" name="msg"
-								placeholder="Comment pouvons-nous vous aider ?"></textarea>
-						</div>
-
-						<button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
+					<div class="bor8 m-b-30">
+						<textarea class="stext-111 cl2 plh3 size-120 p-lr-28 p-tb-25" name="msg"
+							placeholder="Comment pouvons-nous vous aider ?" required><?= htmlspecialchars($old_msg) ?></textarea>
+					</div>						<button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
 							Envoyer
 						</button>
 					</form>
@@ -110,7 +133,7 @@ include($chemin);
 	</section>
 
 	<?php
-	include("./gestionDusite/components/banner.php");
+	include __DIR__ . '/app/views/includes/banner.php';
 	?>
 
 
@@ -132,7 +155,7 @@ include($chemin);
 		</div>
 	</div>
 	<?php
-	include("./gestionDusite/components/footer.php");
+	include __DIR__ . '/app/views/includes/footer.php';
 	?>
 
 </body>
