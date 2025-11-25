@@ -101,9 +101,9 @@ include(realpath(__DIR__ . '\\function\db_connection.php'));
 
       <div class="container">
         <div class="page-inner">
-          <div class="row">
+          <div class="row">/Willsite
             <div class="col-md-12">
-              <form action="enregistrer_admin.php" method="POST">
+              <form action="/Willsite/admin_wws/function/enregistrer_admin.php" method="POST">
                 <div class="card">
                   <div class="card-header">
                     <div class="card-title">Formulaire à remplir</div>

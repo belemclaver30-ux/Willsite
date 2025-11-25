@@ -1,5 +1,5 @@
 <?php
-include(realpath(__DIR__ . '\\function\db_connection.php'));
+include('./db_connection.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $nom = $_POST['form_admin_nom'] ?? '';

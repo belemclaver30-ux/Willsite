@@ -16,12 +16,7 @@
           data-bs-toggle="dropdown"
           href="#"
           aria-expanded="false">
-          <div class="avatar-sm">
-            <img
-              src="../assets/img/team8.jpg"
-              alt="..."
-              class="avatar-img rounded-circle" />
-          </div>
+          
           <span class="profile-username">
             <span class="fw-bold">
             <?php 

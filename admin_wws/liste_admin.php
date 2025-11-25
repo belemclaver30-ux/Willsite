@@ -104,25 +104,7 @@ $administrateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="page-inner">
           <div class="page-header">
             <h3 class="fw-bold mb-3">Liste des Administrateurs</h3>
-            <ul class="breadcrumbs mb-3">
-              <li class="nav-home">
-                <a href="#">
-                  <i class="icon-home"></i>
-                </a>
-              </li>
-              <li class="separator">
-                <i class="icon-arrow-right"></i>
-              </li>
-              <li class="nav-item">
-                <a href="#">Tables</a>
-              </li>
-              <li class="separator">
-                <i class="icon-arrow-right"></i>
-              </li>
-              <li class="nav-item">
-                <a href="#">Datatables</a>
-              </li>
-            </ul>
+          
           </div>
           <div class="row">
 
@@ -156,7 +138,7 @@ $administrateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                           </button>
                         </div>
 
-                        <form id="administrateurForm" action="add_admin.php" method="POST" enctype="multipart/form-data">
+                        <form id="administrateurForm" action="/Willsite/admin_wws/function/enregistrer_admin.php" method="POST" enctype="multipart/form-data">
                           <div class="modal-body">
                             <p class="small">Remplissez tous les champs pour ajouter ou modifier </p>
 
@@ -277,7 +259,7 @@ $administrateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                       document.getElementById('administrateurSexe').value = '';
                       document.getElementById('administrateurStatut').value = '';
                       document.querySelector('#addRowModal .modal-title').innerHTML = '<span class="fw-mediumbold">Nouveau</span> <span class="fw-light">Produit</span>';
-                      document.getElementById('administrateurForm').action = 'add_admin.php';
+                      document.getElementById('administrateurForm').action = '/Willsite/admin_wws/function/enregistrer_admin.php';
                       document.querySelector('#addRowModal button[type=submit]').innerText = 'Ajouter';
                     }
                   </script>
@@ -327,10 +309,10 @@ $administrateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                             <td>
                               <div class="form-button-action">
-                                <a href="delete_admin.php?a_supprimer_id=<?= $administrateur['id'] ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce produit ?');" class="btn btn-link btn-primary btn-lg" data-bs-toggle="tooltip" title="Supprimer">
+                                <a href="delete_admin.php?a_supprimer_id=<?= $administrateur['id'] ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce produit ?');" class="btn btn-link btn-danger btn-lg" data-bs-toggle="tooltip" title="Supprimer">
                                   <i class="fa fa-times"></i>
                                 </a>
-                                <a href="edit_admin.php" class="btn btn-link btn-danger btn-edit" data-bs-toggle="modal" data-bs-target="#addRowModal"
+                                <a href="edit_admin.php" class="btn btn-link btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#addRowModal"
                                   data-id="<?= $administrateur['id'] ?>"
                                   data-name="<?= htmlspecialchars($administrateur['nom']) ?>"
                                   data-prenom="<?= htmlspecialchars($administrateur['prenom']) ?>"
@@ -364,7 +346,7 @@ $administrateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                           document.getElementById('administrateurSexe').value = '';
                           document.getElementById('administrateurStatut').value = '';
                           document.querySelector('#addRowModal .modal-title').innerHTML = '<span class="fw-mediumbold">Nouveau</span> <span class="fw-light">administrateur</span>';
-                          document.getElementById('administrateurForm').action = 'enregistrer_admin.php';
+                          document.getElementById('administrateurForm').action = '/Willsite/admin_wws/function/enregistrer_admin.php';
                           document.querySelector('#addRowModal button[type=submit]').innerText = 'Ajouter';
                         }
 
