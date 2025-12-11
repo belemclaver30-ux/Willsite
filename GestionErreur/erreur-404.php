@@ -22,7 +22,7 @@ include( "../gestionDusite/components/head.php");
 
 	<!-- Title page -->
 	<section class="bg-img1 txt-center p-lr-15 p-tb-92"
-		style="background-image: url('images/visage-humain-expressions-emotions-et-sentiments-beau-jeune-homme-afro-americain-regardant-avec-tho.jpg'); height: 35%;margin-top: 20px;">
+		style="background-image: url('../assets/img/images/visage-humain-expressions-emotions-et-sentiments-beau-jeune-homme-afro-americain-regardant-avec-tho.jpg'); height: 35%;margin-top: 20px;">
 		<h2 class="ltext-105 cl0 txt-center">
 			ERREUR 404
 		</h2>
@@ -42,6 +42,7 @@ include( "../gestionDusite/components/head.php");
 						<p class="stext-113 cl6 p-b-26">
 							Vous avez tenté d’accéder à une page qui ne se trouve plus sur ce site. Veuillez revenir sur
 							la page d'accueil afin de continuer votre navigation sur notre site.</p>
+						<a href="../index.php" class="btn btn-primary">Retour à l'accueil</a>
 					</div>
 				</div>
 

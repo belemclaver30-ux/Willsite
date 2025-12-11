@@ -14,7 +14,7 @@ if (!defined('APP_ACCESS')) {
 // ================================
 
 // URL de base du site
-define('BASE_URL', 'http://localhost/Willsite');
+define('BASE_URL', getenv('BASE_URL') ?: 'http://localhost/Willsite');
 
 // Chemins absolus
 define('ROOT_PATH', __DIR__ . '/..');
@@ -29,10 +29,10 @@ define('UPLOADS_PATH', ROOT_PATH . '/assets/img/uploads');
 // CONFIGURATION DE LA BASE DE DONNÉES
 // ================================
 
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'boutique_informatique');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_NAME', getenv('DB_NAME') ?: 'boutique_informatique');
+define('DB_USER', getenv('DB_USER') ?: 'root');
+define('DB_PASS', getenv('DB_PASS') ?: '');
 define('DB_CHARSET', 'utf8mb4');
 
 // ================================
@@ -40,7 +40,7 @@ define('DB_CHARSET', 'utf8mb4');
 // ================================
 
 // Mode debug
-define('APP_DEBUG', true);
+define('APP_DEBUG', getenv('APP_DEBUG') === 'true' ? true : false);
 
 // Clé de sécurité pour les tokens CSRF
 define('SECURITY_KEY', 'willsite_secure_key_2024');

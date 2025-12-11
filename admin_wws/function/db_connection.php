@@ -1,14 +1,17 @@
 <?php
-// Définir les informations de connexion
-$host = "localhost"; // Hôte (ici, localhost pour XAMPP)
-$dbname = "boutique_informatique"; // Nom de votre base de données
-$username = "root"; // Nom d'utilisateur (par défaut pour XAMPP)
-$password = ""; // Mot de passe (par défaut vide sur XAMPP)
+// Inclure la configuration centrale
+require_once __DIR__ . '/../../config/config.php';
+
+// Utiliser les constantes de configuration
+$host = DB_HOST;
+$dbname = DB_NAME;
+$username = DB_USER;
+$password = DB_PASS;
 
 try {
     // Créer une nouvelle instance PDO
     $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    
+
     // Définir le mode d'erreur de PDO pour qu'il lance une exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {

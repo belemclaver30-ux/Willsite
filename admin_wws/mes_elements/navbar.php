@@ -1,6 +1,11 @@
 <nav
   class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
   <div class="container-fluid">
+    <div class="nav-toggle">
+      <button class="btn btn-toggle toggle-sidebar d-lg-none">
+        <i class="gg-menu-right"></i>
+      </button>
+    </div>
     <nav
       class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
     </nav>

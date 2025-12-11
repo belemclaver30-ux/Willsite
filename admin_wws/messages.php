@@ -10,7 +10,7 @@ if (isset($_SESSION['etat']) && $_SESSION['etat'] === "connecte") {
 include(realpath(__DIR__ . '\\function\db_connection.php'));
 
 // Récupérer les message
-$sql = "SELECT * FROM messages";
+$sql = "SELECT * FROM messages ORDER BY date_envoi DESC";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);

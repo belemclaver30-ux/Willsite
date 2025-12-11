@@ -16,7 +16,7 @@ RewriteCond %{REQUEST_URI} !^/fonctions/ [NC,OR]
 RewriteCond %{REQUEST_URI} !^/uploads/ [NC]
 
 # Page d'erreur 404 personnalisée
-ErrorDocument 404 /Willsite/GestionErreur/erreur-404.php
+ErrorDocument 404 /GestionErreur/erreur-404.php
 
 # Protection des fichiers sensibles
 <FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql|md)$">

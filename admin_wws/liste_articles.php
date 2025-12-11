@@ -83,7 +83,7 @@ if ($catQuery) {
         ],
         urls: ["./assets/css/fonts.min.css"],
       },
-      active: function() {
+      active: function () {
         sessionStorage.fonts = true;
       },
     });
@@ -139,7 +139,7 @@ if ($catQuery) {
 
       <div class="container">
         <div class="page-inner">
-         
+
           <div class="row">
 
             <div class="col-md-12">
@@ -147,7 +147,8 @@ if ($catQuery) {
                 <div class="card-header">
                   <div class="d-flex align-items-center">
                     <h4 class="card-title">Mes Produids > <?= htmlspecialchars($category_name) ?></h4>
-                    <button type="button" class="btn btn-primary  btn-round ms-auto" onclick="resetAddModal()" data-bs-toggle="modal" data-bs-target="#addRowModal" style="margin-left: 500px;">
+                    <button type="button" class="btn btn-primary  btn-round ms-auto" onclick="resetAddModal()"
+                      data-bs-toggle="modal" data-bs-target="#addRowModal" style="margin-left: 500px;">
                       <i class="fa fa-plus"></i>
                       Ajouter un produit
                     </button>
@@ -163,12 +164,14 @@ if ($catQuery) {
                             <span class="fw-mediumbold">Nouveau</span>
                             <span class="fw-light">Produit</span>
                           </h5>
-                          <button type="button" class="close" onclick="$('#addRowModal').modal('hide')" aria-label="Close">
+                          <button type="button" class="close" onclick="$('#addRowModal').modal('hide')"
+                            aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
 
-                        <form id="productForm" action="function/add_product.php" method="POST" enctype="multipart/form-data">
+                        <form id="productForm" action="function/add_product.php" method="POST"
+                          enctype="multipart/form-data">
                           <div class="modal-body">
                             <p class="small">Remplissez tous les champs pour ajouter ou modifier un produit</p>
 
@@ -179,28 +182,32 @@ if ($catQuery) {
                               <div class="col-sm-12">
                                 <div class="form-group form-group-default">
                                   <label>Nom</label>
-                                  <input id="productName" name="produit_name" type="text" class="form-control" required />
+                                  <input id="productName" name="produit_name" type="text" class="form-control"
+                                    required />
                                 </div>
                               </div>
 
                               <div class="col-md-6 pe-0">
                                 <div class="form-group form-group-default">
                                   <label>Processeur</label>
-                                  <input id="productProcesseur" name="produit_processeur" type="text" class="form-control" required />
+                                  <input id="productProcesseur" name="produit_processeur" type="text"
+                                    class="form-control" required />
                                 </div>
                               </div>
 
                               <div class="col-md-6 pe-0">
                                 <div class="form-group form-group-default">
                                   <label>Stockage</label>
-                                  <input id="productStockage" name="produit_stockage" type="text" class="form-control" required />
+                                  <input id="productStockage" name="produit_stockage" type="text" class="form-control"
+                                    required />
                                 </div>
                               </div>
 
                               <div class="col-md-6 pe-0">
                                 <div class="form-group form-group-default">
                                   <label>Écran</label>
-                                  <input id="productEcran" name="produit_ecran" type="number" class="form-control" required />
+                                  <input id="productEcran" name="produit_ecran" type="number" class="form-control"
+                                    required />
                                 </div>
                               </div>
 
@@ -214,7 +221,8 @@ if ($catQuery) {
                               <div class="col-md-6">
                                 <div class="form-group form-group-default">
                                   <label>Prix</label>
-                                  <input id="productPrix" name="produit_prix" type="number" step="0.01" class="form-control" required />
+                                  <input id="productPrix" name="produit_prix" type="number" step="0.01"
+                                    class="form-control" required />
                                 </div>
                               </div>
 
@@ -224,7 +232,8 @@ if ($catQuery) {
                                   <select id="productCategory" name="category_id" class="form-control" required>
                                     <option value="">-- Choisir une catégorie --</option>
                                     <?php foreach ($categories as $cat): ?>
-                                      <option value="<?= $cat['category_id'] ?>"><?= htmlspecialchars($cat['name']) ?></option>
+                                      <option value="<?= $cat['category_id'] ?>"><?= htmlspecialchars($cat['name']) ?>
+                                      </option>
                                     <?php endforeach; ?>
                                   </select>
                                 </div>
@@ -236,7 +245,7 @@ if ($catQuery) {
                                   <label>Image principale :</label>
                                   <input type="file" name="image" required><br>
 
-                                  
+
                                   <label>Image 1 :</label>
                                   <input type="file" name="first_image"><br>
 
@@ -252,7 +261,8 @@ if ($catQuery) {
 
                           <div class="modal-footer border-0">
                             <button type="submit" class="btn btn-primary">Ajouter</button>
-                            <button type="button" class="btn btn-danger" onclick="$('#addRowModal').modal('hide')">Fermer</button>
+                            <button type="button" class="btn btn-danger"
+                              onclick="$('#addRowModal').modal('hide')">Fermer</button>
                           </div>
                         </form>
                       </div>
@@ -261,10 +271,10 @@ if ($catQuery) {
 
                   <!-- Script JS pour remplir automatiquement les champs -->
                   <script>
-                    document.addEventListener('DOMContentLoaded', function() {
+                    document.addEventListener('DOMContentLoaded', function () {
                       const editButtons = document.querySelectorAll('.btn-edit');
                       editButtons.forEach(btn => {
-                        btn.addEventListener('click', function() {
+                        btn.addEventListener('click', function () {
                           document.getElementById('productId').value = this.dataset.id;
                           document.getElementById('productName').value = this.dataset.name;
                           document.getElementById('productProcesseur').value = this.dataset.processeur;
@@ -348,17 +358,21 @@ if ($catQuery) {
                             <td><?= htmlspecialchars($product['ecran']) ?></td>
                             <td><?= htmlspecialchars($product['ram']) ?></td>
                             <td><?= number_format($product['prix'], 0, ',', ' ') ?> FCFA</td>
-                            <td> <img src="../assets/img/uploads/<?= htmlspecialchars($product['image_url']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" style=" width: 60px;height: auto;object-fit: cover; border-radius: 5px; ">
+                            <td> <img src="../assets/img/uploads/<?= htmlspecialchars($product['image_url']) ?>"
+                                alt="<?= htmlspecialchars($product['name']) ?>"
+                                style=" width: 60px;height: auto;object-fit: cover; border-radius: 5px; ">
 
                             </td>
 
                             <td>
                               <div class="form-button-action">
-                                <a href="delete_product.php?a_supprimer_id=<?= $product['product_id'] ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce produit ?');" class="btn btn-link btn-danger btn-lg" data-bs-toggle="tooltip" title="Supprimer">
+                                <a href="delete_product.php?a_supprimer_id=<?= $product['product_id'] ?>"
+                                  onclick="return confirm('Voulez-vous vraiment supprimer ce produit ?');"
+                                  class="btn btn-link btn-danger btn-lg" data-bs-toggle="tooltip" title="Supprimer">
                                   <i class="fa fa-times"></i>
                                 </a>
-                                <a href="#" class="btn btn-link btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#addRowModal"
-                                  data-id="<?= $product['product_id'] ?>"
+                                <a href="#" class="btn btn-link btn-primary btn-edit" data-bs-toggle="modal"
+                                  data-bs-target="#addRowModal" data-id="<?= $product['product_id'] ?>"
                                   data-name="<?= htmlspecialchars($product['name']) ?>"
                                   data-processeur="<?= htmlspecialchars($product['processeur']) ?>"
                                   data-stockage="<?= htmlspecialchars($product['stockage']) ?>"
@@ -369,8 +383,7 @@ if ($catQuery) {
                                   data-image="<?= htmlspecialchars($product['image_url']) ?>"
                                   data-image1="<?= htmlspecialchars($product['first_image']) ?>"
                                   data-image2="<?= htmlspecialchars($product['second_image']) ?>"
-                                  data-image3="<?= htmlspecialchars($product['third_image']) ?>"
-                                  title="Modifier">
+                                  data-image3="<?= htmlspecialchars($product['third_image']) ?>" title="Modifier">
                                   <i class="fa fa-edit"></i>
                                 </a>
                               </div>
@@ -389,35 +402,11 @@ if ($catQuery) {
           </div>
         </div>
       </div>
-    </div>
 
-    <footer class="footer">
-      <div class="container-fluid d-flex justify-content-between">
-        <nav class="pull-left">
-          <ul class="nav">
-            <li class="nav-item">
-              <a class="nav-link" href="http://www.themekita.com">
-                ThemeKita
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"> Help </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"> Licenses </a>
-            </li>
-          </ul>
-        </nav>
-        <div class="copyright">
-          2024, made with <i class="fa fa-heart heart text-danger"></i> by
-          <a href="http://www.themekita.com">ThemeKita</a>
-        </div>
-        <div>
-          Distributed by
-          <a target="_blank" href="https://themewagon.com/">ThemeWagon</a>.
-        </div>
-      </div>
-    </footer>
+      <?php
+      include("./mes_elements/footer.php");
+      ?>
+    </div>
   </div>
 
   <!-- Custom template | don't include it in your project! -->
@@ -497,21 +486,21 @@ if ($catQuery) {
   <!-- Kaiadmin DEMO methods, don't include it in your project! -->
   <script src="./assets/js/setting-demo2.js"></script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       $("#basic-datatables").DataTable({});
 
       $("#multi-filter-select").DataTable({
         pageLength: 5,
-        initComplete: function() {
+        initComplete: function () {
           this.api()
             .columns()
-            .every(function() {
+            .every(function () {
               var column = this;
               var select = $(
-                  '<select class="form-select"><option value=""></option></select>'
-                )
+                '<select class="form-select"><option value=""></option></select>'
+              )
                 .appendTo($(column.footer()).empty())
-                .on("change", function() {
+                .on("change", function () {
                   var val = $.fn.dataTable.util.escapeRegex($(this).val());
 
                   column
@@ -523,7 +512,7 @@ if ($catQuery) {
                 .data()
                 .unique()
                 .sort()
-                .each(function(d, j) {
+                .each(function (d, j) {
                   select.append(
                     '<option value="' + d + '">' + d + "</option>"
                   );
@@ -540,7 +529,7 @@ if ($catQuery) {
       var action =
         '<td> <div class="form-button-action"> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
 
-      $("#addRowButton").click(function() {
+      $("#addRowButton").click(function () {
         $("#add-row")
           .dataTable()
           .fnAddData([

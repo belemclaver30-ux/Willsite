@@ -82,7 +82,7 @@ function compterCommandes($conn)
         ],
         urls: ["assets/css/fonts.min.css"],
       },
-      active: function() {
+      active: function () {
         sessionStorage.fonts = true;
       },
     });
@@ -100,7 +100,7 @@ function compterCommandes($conn)
 <body>
   <div class="wrapper">
 
-    
+
     <?php
     include("mes_elements/sidebar.php");
     ?>
@@ -109,9 +109,18 @@ function compterCommandes($conn)
     <div class="main-panel">
       <div class="main-header">
         <div class="main-header-logo">
-
-          <!-- End Logo Header -->
+          <div class="logo-header" data-background-color="dark">
+            <a href="#" class="logo">
+              <img src="assets/img/logo.jpg" alt="navbar brand" class="navbar-brand">
+            </a>
+            <button class="navbar-toggler sidenav-toggler" type="button" data-bs-toggle="collapse"
+              data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
+          </div>
         </div>
+
         <!-- Navbar Header -->
         <?php
         include("./mes_elements/navbar.php");
@@ -171,7 +180,7 @@ function compterCommandes($conn)
 
             foreach ($categories as $id => $cat) {
               $nb = $totaux[$id] ?? 0;
-            ?>
+              ?>
               <div class="col-sm-6 col-md-3">
                 <div class="card card-stats card-round">
                   <div class="card-body">
@@ -229,18 +238,13 @@ function compterCommandes($conn)
             <div class="card card-round">
               <div class="card-body">
                 <div class="card-head-row card-tools-still-right">
-                  <div class="card-title">New Customers</div>
+                  <div class="card-title">Nouveau message(s)</div>
                   <div class="card-tools">
                     <div class="dropdown">
                       <button class="btn btn-icon btn-clean me-0" type="button" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-h"></i>
                       </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
+                      
                     </div>
                   </div>
                 </div>
@@ -252,7 +256,7 @@ function compterCommandes($conn)
                     $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                     foreach ($messages as $row) {
-                    ?>
+                      ?>
                       <div class="item-list">
                         <div class="avatar">
                           <span class="avatar-title rounded-circle border border-white bg-info">
@@ -263,11 +267,11 @@ function compterCommandes($conn)
                           <div class="username"><?= htmlspecialchars($row['email']) ?></div>
                           <div class="status"><?= htmlspecialchars($row['message']) ?></div>
                         </div>
-                        <a href="./message_print.php?msg_id=<?=htmlspecialchars($row['id']); ?>">
+                        <a href="./message_print.php?msg_id=<?= htmlspecialchars($row['id']); ?>">
 
-                        <button class="btn btn-icon btn-link op-8 me-1" title="<?= $row['date_envoi'] ?>">
-                        <i class="fas fa-envelope fa-2x"></i>
-                        </button>
+                          <button class="btn btn-icon btn-link op-8 me-1" title="<?= $row['date_envoi'] ?>">
+                            <i class="fas fa-envelope fa-2x"></i>
+                          </button>
 
                         </a>
                       </div>
